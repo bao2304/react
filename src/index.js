@@ -6,8 +6,11 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import User from "./components/Header/Users/User";
-import Admin from "./components/Header/Admin/Admin";
+import User from "./components/Users/User";
+import Admin from "./components/Admin/Admin";
+import HomePage from "./components/Home/HomPage";
+import ManagerUser from "./components/Content/ManageUser";
+import DashBoard from "./components/Content/DashBoard";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<Provider store={store}>
@@ -15,8 +18,13 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<App />}>
+					<Route index element={<HomePage />} />
 					<Route path="users" element={<User />} />
-					<Route path="admins" element={<Admin />} />
+				</Route>
+				<Route path="/admins" element={<Admin />}>
+					<Route index element={<DashBoard />} />
+
+					<Route path="manage-user" element={<ManagerUser />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
