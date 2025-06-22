@@ -1,4 +1,5 @@
 import "react-pro-sidebar/dist/css/styles.css";
+
 import {
 	ProSidebar,
 	Menu,
@@ -18,6 +19,7 @@ import {
 	FaHeart,
 } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
+import { Link } from "react-router-dom";
 
 const SideBar = (props) => {
 	const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -54,12 +56,17 @@ const SideBar = (props) => {
 							suffix={<span className="badge red">New</span>}
 						>
 							dashboard
+							<Link to="/admins" />
 						</MenuItem>
 
 						{/* <MenuItem icon={<FaGem />}> components </MenuItem> */}
 						<Menu iconShape="circle">
 							<SubMenu icon={<FaGem />} title={"ChucNang"}>
-								<MenuItem> QuanLy User</MenuItem>
+								<MenuItem>
+									{" "}
+									QuanLy User
+									<Link to="/admins/manage-users" />
+								</MenuItem>
 								<MenuItem> 2</MenuItem>
 								<MenuItem> 3</MenuItem>
 							</SubMenu>
