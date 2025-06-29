@@ -3,19 +3,30 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiService";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner9 } from "react-icons/im";
 const Login = (props) => {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useDispatch();
 	const handleLogin = async () => {
 		//validate
 		//submit api
+		setIsLoading(true);
+
 		let data = await postLogin(email, password);
 		if (data && data.EC === 0) {
+			dispatch(doLogin(data));
 			toast.success(data.EM);
+
 			navigate("/");
+			setIsLoading(false);
 		}
 		if (data && data.EC !== 0) {
 			toast.error(data.EM);
+			setIsLoading(false);
 		}
 	};
 	const navigate = useNavigate();
@@ -48,8 +59,13 @@ const Login = (props) => {
 				</div>
 				<span className="forgot-password">Forgot password ?</span>
 				<div className="mx-auto">
-					<button className="btn-submit" onClick={() => handleLogin()}>
-						Login
+					<button
+						className="btn-submit"
+						onClick={() => handleLogin()}
+						disabled={isLoading}
+					>
+						{isLoading === true && <ImSpinner9 className="loader-Icon" />}
+						<span>Login</span>
 					</button>
 				</div>
 				<div className="back">
